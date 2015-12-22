@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>GTRI</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<script src="./app.js"></script>
+</head>
+<body ng-app="gtri">
+<div ng-controller="gtriCtrl" ng-class="{'cursor-wait': waiting}">
+	<h3>GTRI</h3>
+	<div class="header">
+		<div class="header-sec label"> Filter:</div>
+		<div class="header-sec radio">
+			<input type="radio" ng-model="active" value="true">Active<br>
+			<input type="radio" ng-model="active" value="false">Inactive<br>
+			<input type="radio" ng-model="active" value="" >Both
+		</div>
+		<div class="header-sec match">
+			<div class="match-label">Name Match <span class="sub-label">(First, Middle or Last)</span>:</div>
+			<input id="inputMatchString" type="text" class="match-string"
+						 placeholder="Enter a few letters (search is case sensitive)"
+						 ng-model="matchString"
+						 ng-model-options="{debounce: 500}"
+			focus-me="true">
+		</div>
+		<button class="header-sec tool">Run Test Function</button>
+		<div ></div>
+	</div>
+
+	<div class="content">
+		<hr>
+		<div class="gtriPerson" ng-repeat="person in people">
+			<span>{{person.name.first}} | </span>
+			<span>{{person.name.middle}} | </span>
+			<span>{{person.name.last}} | </span>
+			<span>Active: {{person.active}} </span>
+		</div>
+	</div>
+
+	
+</div>
+<script src="env-config.js"></script>
+</body>
+</html>

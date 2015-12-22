@@ -55,12 +55,20 @@
 
 	<div ng-show="view==='test'">
 		<div class="header">
-
+			This view runs a function created as an exercise. The requirements are:<br>
+			* Accept an array of integers as in input<br>
+			* Return true if the list contains two integers that sum to zero<br>
+			* Return false otherwise<br>
+			**Note, we are assuming that the input array can be of any length and the two numbers may be at any positions.
 		</div>
 
 		<div class="content">
 			<hr>
+			<input type="text" class="col-value" ng-model="testInputString" placeholder="enter comma delimited list of integers"><br>
+			<button ng-click="executeTest()">Execute</button><br>
 
+			Result: {{testResult}}<br>
+			Integers: {{testExplain}}
 		</div>
 	</div>
 	

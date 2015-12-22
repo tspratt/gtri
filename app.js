@@ -7,11 +7,16 @@ angular
 			$scope.waiting = false;
 			$scope.view = 'people';	//'people';		//test
 			$scope.editMode = false;
+			$scope.testInputString = '1,3,5,7,-3,-2,-100';
+			$scope.testResult = null;
+			$scope.testExplain = '';
 
 			$scope.$watch('active', function (newValue, oldValue) {
+				$scope.people = [];			//to give immediate feedback that search is happening
 				getPeopleData();
 			});
 			$scope.$watch('matchString', function (newValue, oldValue) {
+				$scope.people = [];			//to give immediate feedback that search is happening
 				getPeopleData();
 			});
 
@@ -21,6 +26,55 @@ angular
 				sReturn += (oPerson.name.last && oPerson.name.last.length > 0)? ' ' + oPerson.name.last: '';
 				return sReturn
 			};
+
+			/**
+			 * Run by the execute button,
+			 * launches test function
+			 */
+			$scope.executeTest = function () {
+				var aIn;
+				var oResult;
+				$scope.testExplain = '';
+				try {
+					aIn = $scope.testInputString.split(',').map(Number);
+					oResult = fnTest(aIn);
+					$scope.testResult = oResult.result;
+					if ($scope.testResult) {
+						$scope.testExplain = oResult.match.join(',');
+					}
+					else {
+						$scope.testExplain = 'No pair of integers sum to zero'
+					}
+				}
+				catch (error) {
+					$scope.testExplain = error.message;
+				}
+			};
+
+			/**
+			 * this function returns an object containing the boolean result
+			 * and the integers that matched the requirements
+			 * @param aIn
+			 * @returns {{result: boolean, match: *}}
+			 */
+			function fnTest (aIn) {
+				var iCheck1;
+				var iCheck2;
+				var bReturn = false;
+				var aMatch;
+				for (var i = 0; i< aIn.length; i ++) {
+					iCheck1 = aIn[i];
+					for (var j = 0; j < aIn.length; j ++) {
+						iCheck2 = aIn[j];
+						if (iCheck1 + iCheck2 === 0) {
+							bReturn = true;
+							aMatch = [iCheck1,iCheck2];
+							break;
+						}
+					}
+				}
+				return {result: bReturn, match: aMatch};
+			}
 
 			function getPeopleData() {
 				$scope.waiting = true;

@@ -7,6 +7,24 @@ html {
   cursor: wait !important;
 }
 
+.main {
+  padding: 5px;
+}
+
+.nav-menu {
+  margin-bottom: 8px;
+}
+
+.view-nav {
+  background-color: aliceblue;
+  padding: 10px;
+}
+
+.view-nav.selected {
+  font-weight: bold;
+  background-color: #e5e5ee;
+}
+
 .header {
   padding: 10px;
   background-color: #e5e5ee;
@@ -19,7 +37,7 @@ html {
   float: left;
 }
 
-.header-sec.label {
+.header-sec.header-label {
   width: 70px;
   font-weight: bold;
 }
@@ -29,7 +47,7 @@ html {
 }
 
 .header-sec.match {
-  width: 45%;
+  width: 60%;
 }
 
 .header-sec.tool {
@@ -58,6 +76,21 @@ input.match-string {
 .sub-label {
   font-size: smaller;
   font-weight: normal;
+}
+
+.person-detail {
+  font-size: 12px;
+}
+
+.col-label {
+  width: 20%;
+  min-width: 80px;
+  text-align: right;
+}
+
+.col-value {
+  width: 75%;
+  margin-left: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

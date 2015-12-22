@@ -1,10 +1,12 @@
 angular
-		.module('gtri', [])
+		.module('gtri', ['ui.bootstrap'])
 		.controller('gtriCtrl', ['$scope', 'appData', function ($scope, appData) {
 			$scope.people = [];
 			$scope.matchString = '';
 			$scope.active = '';
 			$scope.waiting = false;
+			$scope.view = 'people';	//'people';		//test
+			$scope.editMode = false;
 
 			$scope.$watch('active', function (newValue, oldValue) {
 				getPeopleData();
@@ -13,13 +15,20 @@ angular
 				getPeopleData();
 			});
 
+			$scope.fullName = function (oPerson) {
+				var sReturn = oPerson.name.first;
+				sReturn += (oPerson.name.middle && oPerson.name.middle.length > 0)? ' ' + oPerson.name.middle: '';
+				sReturn += (oPerson.name.last && oPerson.name.last.length > 0)? ' ' + oPerson.name.last: '';
+				return sReturn
+			};
+
 			function getPeopleData() {
 				$scope.waiting = true;
 				appData.getPeopleData($scope.matchString, $scope.active)
 						.then(function (res) {
 							if (res.status >= 200 && res.status < 300) {
 								$scope.people = res.data;
-								console.log(res.data.length);
+								console.log(JSON.stringify(res.data[1],null,2));
 							}
 							else {
 								console.log('HTTP Error: ' + res.statusText);
@@ -56,6 +65,13 @@ angular
 
 			return appData;
 		}])
+		.directive('personDetail', function () {
+			return {
+				restrict: 'E',
+				scope: true,
+				templateUrl: 'person-detail-tmpl.html',
+			};
+		})
 		.directive('focusMe', function () {
 			return {
 				link: function (scope, element, attrs) {

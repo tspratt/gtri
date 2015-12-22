@@ -4,44 +4,69 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>GTRI</title>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
 	<link rel="stylesheet" href="style.css">
 	<script src="./app.js"></script>
 </head>
-<body ng-app="gtri">
-<div ng-controller="gtriCtrl" ng-class="{'cursor-wait': waiting}">
-	<h3>GTRI</h3>
-	<div class="header">
-		<div class="header-sec label"> Filter:</div>
-		<div class="header-sec radio">
-			<input type="radio" ng-model="active" value="true">Active<br>
-			<input type="radio" ng-model="active" value="false">Inactive<br>
-			<input type="radio" ng-model="active" value="" >Both
+<body ng-app="gtri" ng-cloak>
+<div ng-controller="gtriCtrl" class="main" ng-class="{'cursor-wait': waiting}">
+	<h4>GTRI</h4>
+	<div class="nav-menu">
+		<a href="#" ng-click="view='people'" class="view-nav"
+			 ng-class="{'selected':view==='people'}">Find People</a>
+		<a href="#" ng-click="view='test'" class="view-nav"
+			 ng-class="{'selected':view==='test'}">Function Exercise</a>
+	</div>
+	<div ng-show="view==='people'">
+		<div class="header">
+			<div class="header-sec header-label"> Filter:</div>
+			<div class="header-sec radio">
+				<input type="radio" ng-model="active" value="true">Active<br>
+				<input type="radio" ng-model="active" value="false">Inactive<br>
+				<input type="radio" ng-model="active" value="" >Both
+			</div>
+			<div class="header-sec match">
+				<div class="match-label">Name Match <span class="sub-label">(First, Middle or Last)</span>:</div>
+				<input id="inputMatchString" type="text" class="match-string"
+							 placeholder="Enter a few letters (search is case sensitive)"
+							 ng-model="matchString"
+							 ng-model-options="{debounce: 500}"
+							 focus-me="true">
+			</div>
 		</div>
-		<div class="header-sec match">
-			<div class="match-label">Name Match <span class="sub-label">(First, Middle or Last)</span>:</div>
-			<input id="inputMatchString" type="text" class="match-string"
-						 placeholder="Enter a few letters (search is case sensitive)"
-						 ng-model="matchString"
-						 ng-model-options="{debounce: 500}"
-			focus-me="true">
+
+		<div class="content">
+			<hr>
+			<div class="container">
+				<uib-accordion close-others="true">
+					<uib-accordion-group ng-repeat="person in people" is-open="status.open">
+						<uib-accordion-heading class="person-list-heading">
+							{{fullName(person)}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+						</uib-accordion-heading>
+						<person-detail></person-detail>
+					</uib-accordion-group>
+				</uib-accordion>
+			</div>
 		</div>
-		<button class="header-sec tool">Run Test Function</button>
-		<div ></div>
 	</div>
 
-	<div class="content">
-		<hr>
-		<div class="gtriPerson" ng-repeat="person in people">
-			<span>{{person.name.first}} | </span>
-			<span>{{person.name.middle}} | </span>
-			<span>{{person.name.last}} | </span>
-			<span>Active: {{person.active}} </span>
+	<div ng-show="view==='test'">
+		<div class="header">
+
+		</div>
+
+		<div class="content">
+			<hr>
+
 		</div>
 	</div>
-
 	
 </div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+<script src="lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
 <script src="env-config.js"></script>
 </body>
 </html>

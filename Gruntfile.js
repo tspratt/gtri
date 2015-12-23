@@ -1,9 +1,11 @@
 'use strict';
 
 module.exports = function (grunt) {
-
+	//require('load-grunt-tasks')(grunt);
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
 	grunt.initConfig({
 		sass: {
@@ -16,8 +18,37 @@ module.exports = function (grunt) {
 				}
 			}
 		},
-		//environment constants replacements
-		replace: {
+		clean: {
+			dist: {
+				files: [{
+					dot: true,
+					src: [
+						'.tmp',
+						'./dist/{,*/}*'
+					]
+				}]
+			}
+		},
+		copy: {
+			dist: {
+				files: [
+					{
+						expand: true,
+						dot: true,
+						cwd: '',
+						dest: 'dist',
+						src: [
+							'app.js',
+							'*.html',
+							'env-config.js',
+							'lib/*.*',
+							'style.css'
+						]
+					}
+				]
+			}
+		},
+		replace: {					//environment constants replacements
 			dev: {
 				options: {
 					patterns: [
@@ -59,4 +90,10 @@ module.exports = function (grunt) {
 		'replace:qa'
 	]);
 
+	grunt.registerTask('build_dist', [
+		'sass:dev',
+		'replace:dev',
+		'clean:dist',
+		'copy:dist'
+	]);
 };

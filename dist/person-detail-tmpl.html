@@ -1,0 +1,94 @@
+<form class="form-horizontal person-detail">
+	<div class="form-group">
+		<label class="col-label">ID: {{person.id}}</label>
+		<label class="col-label" for="active">Active:</label>
+		<input class="col-label" type="checkbox" id="active"
+					 ng-model="person.active"
+					 ng-disabled="!editMode">
+	</div>
+
+	<div class="form-group">
+		<div>
+			<label class="col-label" for="firstname">First Name:</label>
+
+			<input type="text" class="col-value" id="firstname" placeholder="first name"
+						 ng-value="person.name.first"
+						 ng-disabled="!editMode">
+
+		</div>
+
+		<div>
+			<label class="col-label" for="middlename">Middle Name:</label>
+
+			<input type="text" class="col-value" id="middlename" placeholder="middle"
+						 ng-value="person.name.middle"
+						 ng-disabled="!editMode">
+
+		</div>
+		<div>
+			<label class=" col-label" for="lastname">Last Name:</label>
+
+			<input type="text" class="col-value" id="lastname" placeholder="last name"
+						 ng-value="person.name.last"
+						 ng-disabled="!editMode">
+
+		</div>
+
+
+	</div>
+	<div class="form-group">
+
+		<label class=" col-label" for="line1">Address 1:</label>
+
+		<input type="text" class="col-value" id="line1" placeholder="address line 1"
+					 ng-value="person.address.line1"
+					 ng-disabled="!editMode">
+
+		<div>
+			<label class=" col-label" for="line2">Address 2:</label>
+
+			<input type="text" class="col-value" id="line2" placeholder="suite, apt, etc"
+						 ng-value="person.address.line2"
+						 ng-disabled="!editMode">
+
+		</div>
+
+		<div>
+			<label class=" col-label" for="city">City:</label>
+
+			<input type="text" class="col-value" id="city" placeholder="city"
+						 ng-value="person.address.city"
+						 ng-disabled="!editMode">
+
+		</div>
+
+		<div>
+			<label class=" col-label" for="state">State:</label>
+
+			<input type="text" class="col-value" id="state" placeholder="state"
+						 ng-value="person.address.state"
+						 ng-disabled="!editMode">
+
+		</div>
+
+		<div>
+			<label class=" col-label" for="zip">ZIP:</label>
+
+			<input type="text" class="col-value" id="zip" placeholder="zip"
+						 ng-value="person.address.zip"
+						 ng-disabled="!editMode">
+
+		</div>
+
+		<div>
+			<label class=" col-label" for="phone">Phone:</label>
+
+			<input type="text" class="col-value" id="phone" placeholder="phone"
+						 ng-value="person.address.phone"
+						 ng-disabled="!editMode">
+
+		</div>
+
+	</div>
+
+</form>
